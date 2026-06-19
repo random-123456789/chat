@@ -1,1 +1,1 @@
-const API_URL = "https://organisms-boundary-economic-hypothetical.trycloudflare.com";
+const API_URL = "https://requested-messaging-seven-species.trycloudflare.com";
