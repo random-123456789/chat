@@ -1,1 +1,1 @@
-const API_URL = "https://parts-drama-harrison-capabilities.trycloudflare.com";
+const API_URL = "https://mode-specifications-sku-wallpaper.trycloudflare.com";
