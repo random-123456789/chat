@@ -1,1 +1,1 @@
-const API_URL = "https://gnome-montana-secret-now.trycloudflare.com";
+const API_URL = "https://lung-hip-hurricane-hottest.trycloudflare.com";
