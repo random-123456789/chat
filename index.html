@@ -3,355 +3,367 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat</title>
+    <title>Ollama Chat</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: system-ui, -apple-system, sans-serif;
-            background: #0d1117;
-            color: #e6edf3;
+            background: #0b0e14;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 1rem;
         }
+
         .chat-container {
             width: 100%;
-            max-width: 720px;
-            background: #161b22;
-            border-radius: 16px;
-            border: 1px solid #30363d;
+            max-width: 700px;
+            background: #141a22;
+            border-radius: 20px;
             padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.04);
         }
+
         h1 {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: #f0f6fc;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #e0e6ed;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            letter-spacing: -0.01em;
         }
-        h1::after {
-            content: "●";
-            color: #3fb950;
-            font-size: 0.75rem;
-            animation: pulse 1.5s infinite;
+
+        h1 span {
+            background: #1f6feb;
+            border-radius: 6px;
+            padding: 0.1rem 0.6rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #fff;
+            margin-left: 0.5rem;
+            letter-spacing: 0.03em;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+
         .messages {
-            background: #0d1117;
-            border-radius: 12px;
+            background: #0b0e14;
+            border-radius: 14px;
             padding: 1rem;
-            height: 400px;
+            height: 380px;
             overflow-y: auto;
             margin-bottom: 1rem;
-            border: 1px solid #21262d;
+            border: 1px solid #232a33;
         }
-        .messages::-webkit-scrollbar { width: 6px; }
-        .messages::-webkit-scrollbar-track { background: transparent; }
-        .messages::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+
+        .messages::-webkit-scrollbar {
+            width: 5px;
+        }
+        .messages::-webkit-scrollbar-thumb {
+            background: #2d3748;
+            border-radius: 10px;
+        }
+
         .message {
-            padding: 0.5rem 0.75rem;
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            max-width: 90%;
+            padding: 0.5rem 0.8rem;
+            border-radius: 12px;
+            margin-bottom: 0.6rem;
+            max-width: 88%;
             word-wrap: break-word;
             line-height: 1.6;
-            animation: fadeIn 0.2s ease;
+            animation: slideUp 0.2s ease;
+            font-size: 0.95rem;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .message.user {
             background: #1f6feb;
             margin-left: auto;
             color: #fff;
         }
+
         .message.bot {
-            background: #21262d;
+            background: #1e2630;
             margin-right: auto;
+            color: #e6edf3;
         }
+
         .message.error {
-            background: #da3633;
+            background: #b91c1c;
             color: #fff;
         }
-        .message .source {
-            font-size: 0.6rem;
-            opacity: 0.5;
-            margin-top: 0.25rem;
-        }
+
         .typing-indicator {
             display: none;
-            padding: 0.5rem 0.75rem;
-            color: #8b949e;
-            font-size: 0.875rem;
+            padding: 0.4rem 0.8rem;
+            color: #7a8a9e;
+            font-size: 0.85rem;
+            font-style: italic;
         }
         .typing-indicator.active {
             display: block;
         }
+
         .input-row {
             display: flex;
             gap: 0.75rem;
         }
+
         .input-row input {
             flex: 1;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            border: 1px solid #30363d;
-            background: #0d1117;
+            padding: 0.7rem 1rem;
+            border-radius: 14px;
+            border: 1px solid #2d3748;
+            background: #0b0e14;
             color: #e6edf3;
-            font-size: 1rem;
+            font-size: 0.95rem;
             outline: none;
-            transition: border 0.2s;
+            transition: border 0.2s, box-shadow 0.2s;
         }
+
         .input-row input:focus {
             border-color: #1f6feb;
+            box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.2);
         }
+
         .input-row input::placeholder {
-            color: #8b949e;
+            color: #5a6a7e;
         }
+
         .input-row button {
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
+            padding: 0.7rem 1.8rem;
+            border-radius: 14px;
             border: none;
             background: #1f6feb;
             color: #fff;
             font-weight: 600;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
-            transition: background 0.2s;
+            transition: background 0.2s, transform 0.1s;
             white-space: nowrap;
         }
+
         .input-row button:hover {
             background: #388bfd;
         }
+
+        .input-row button:active {
+            transform: scale(0.96);
+        }
+
         .input-row button:disabled {
-            opacity: 0.5;
+            opacity: 0.4;
             cursor: not-allowed;
+            transform: none;
         }
-        .status {
-            margin-top: 0.75rem;
-            font-size: 0.75rem;
-            color: #8b949e;
+
+        .footer {
+            margin-top: 0.8rem;
             text-align: center;
+            font-size: 0.65rem;
+            color: #4a5a6e;
+            letter-spacing: 0.02em;
         }
-        .status a {
-            color: #58a6ff;
+
+        .footer a {
+            color: #4a7af0;
             text-decoration: none;
         }
-        .status a:hover {
-            text-decoration: underline;
+
+        /* Unique touch: breathing glow on the container */
+        .chat-container {
+            animation: containerPulse 6s ease-in-out infinite;
+        }
+
+        @keyframes containerPulse {
+            0%, 100% { box-shadow: 0 12px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04); }
+            50% { box-shadow: 0 12px 50px rgba(31,111,235,0.08), 0 0 0 1px rgba(255,255,255,0.06); }
         }
     </style>
 </head>
 <body>
 
-    <div class="chat-container">
-        <h1>Chat</h1>
+<div class="chat-container">
+    <h1>
+        ✦ Chat
+        <span>Ollama</span>
+    </h1>
 
-        <div class="messages" id="messages">
-            <div class="message bot">
-                Hello! Ask me anything.
-                <div class="source">powered by Ollama</div>
-            </div>
-        </div>
-
-        <div class="typing-indicator" id="typing">… thinking</div>
-
-        <div class="input-row">
-            <input type="text" id="question" placeholder="Type your question…" autofocus />
-            <button id="sendBtn">Send</button>
-        </div>
-
-        <div class="status">
-            API: <span id="apiUrl">loading…</span>
+    <div class="messages" id="messages">
+        <div class="message bot">
+            Hello! Ask me anything.
         </div>
     </div>
 
-    <script>
-        // ------------------------------------------------------------------
-        // Load config.json
-        // ------------------------------------------------------------------
-        let API_URL = null;
+    <div class="typing-indicator" id="typing">… thinking</div>
 
-        fetch('config.json')
-            .then(res => {
-                if (!res.ok) throw new Error(`HTTP ${res.status}`);
-                return res.json();
-            })
-            .then(config => {
-                if (!config.apiUrl) throw new Error('Missing apiUrl in config.json');
-                API_URL = config.apiUrl;
-                document.getElementById('apiUrl').textContent = API_URL;
-                // Enable the UI after config loads
-                document.getElementById('question').disabled = false;
-                document.getElementById('sendBtn').disabled = false;
-                document.getElementById('question').placeholder = 'Type your question…';
-            })
-            .catch(err => {
-                console.error('Failed to load config.json:', err);
-                document.getElementById('apiUrl').textContent = '❌ config.json not loaded';
-                document.querySelector('.status').style.color = '#da3633';
-                // Show a fallback error message
-                const msg = document.createElement('div');
-                msg.className = 'message error';
-                msg.textContent = '❌ Could not load config.json. Please check the file exists.';
-                document.getElementById('messages').appendChild(msg);
+    <div class="input-row">
+        <input type="text" id="question" placeholder="Type your question…" autofocus />
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <div class="footer">
+        ⚡ powered by Ollama · <span id="statusDot">●</span> live
+    </div>
+</div>
+
+<script>
+    // ------------------------------------------------------------------
+    // Load config.json (silently – no display)
+    // ------------------------------------------------------------------
+    let API_URL = null;
+
+    fetch('config.json')
+        .then(res => {
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            return res.json();
+        })
+        .then(config => {
+            if (!config.apiUrl) throw new Error('Missing apiUrl');
+            API_URL = config.apiUrl;
+            // Enable UI
+            document.getElementById('question').disabled = false;
+            document.getElementById('sendBtn').disabled = false;
+            document.getElementById('question').placeholder = 'Type your question…';
+            document.getElementById('statusDot').style.color = '#3fb950';
+        })
+        .catch(err => {
+            console.error('Config error:', err);
+            document.getElementById('statusDot').style.color = '#f85149';
+            document.querySelector('.footer span:last-child').textContent = '⚠️ offline';
+            const msg = document.createElement('div');
+            msg.className = 'message error';
+            msg.textContent = '❌ Could not load config.json. Please check the file.';
+            document.getElementById('messages').appendChild(msg);
+        });
+
+    // ------------------------------------------------------------------
+    // DOM refs
+    // ------------------------------------------------------------------
+    const messagesEl = document.getElementById('messages');
+    const typingEl = document.getElementById('typing');
+    const inputEl = document.getElementById('question');
+    const sendBtn = document.getElementById('sendBtn');
+
+    inputEl.disabled = true;
+    sendBtn.disabled = true;
+
+    function addMessage(text, type = 'bot') {
+        const div = document.createElement('div');
+        div.className = `message ${type}`;
+        div.textContent = text;
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+        return div;
+    }
+
+    function setTyping(visible) {
+        typingEl.classList.toggle('active', visible);
+    }
+
+    function setLoading(loading) {
+        sendBtn.disabled = loading || !API_URL;
+        inputEl.disabled = loading || !API_URL;
+        sendBtn.textContent = loading ? '…' : 'Send';
+    }
+
+    // ------------------------------------------------------------------
+    // Send question – streaming
+    // ------------------------------------------------------------------
+    async function sendQuestion(question) {
+        if (!question.trim() || !API_URL) return;
+
+        addMessage(question, 'user');
+        inputEl.value = '';
+
+        setTyping(true);
+        setLoading(true);
+
+        const botMsg = addMessage('', 'bot');
+        let fullAnswer = '';
+
+        try {
+            const response = await fetch(`${API_URL}/ask`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question }),
             });
 
-        // ------------------------------------------------------------------
-        // DOM refs (but wait for config to load before enabling)
-        // ------------------------------------------------------------------
-        const messagesEl = document.getElementById('messages');
-        const typingEl = document.getElementById('typing');
-        const inputEl = document.getElementById('question');
-        const sendBtn = document.getElementById('sendBtn');
-
-        // Disable UI until config is loaded (set in HTML)
-        inputEl.disabled = true;
-        sendBtn.disabled = true;
-        inputEl.placeholder = 'Loading config…';
-
-        // ------------------------------------------------------------------
-        // Helpers
-        // ------------------------------------------------------------------
-        function addMessage(text, type = 'bot', source = null) {
-            const div = document.createElement('div');
-            div.className = `message ${type}`;
-            div.textContent = text;
-            if (source) {
-                const src = document.createElement('div');
-                src.className = 'source';
-                src.textContent = `source: ${source}`;
-                div.appendChild(src);
+            if (!response.ok) {
+                const err = await response.text();
+                throw new Error(`Server error: ${response.status} ${err}`);
             }
-            messagesEl.appendChild(div);
-            messagesEl.scrollTop = messagesEl.scrollHeight;
-            return div;
-        }
 
-        function setTyping(visible) {
-            typingEl.classList.toggle('active', visible);
-        }
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            let buffer = '';
 
-        function setLoading(loading) {
-            sendBtn.disabled = loading || !API_URL;
-            inputEl.disabled = loading || !API_URL;
-            if (loading) {
-                sendBtn.textContent = '…';
-            } else {
-                sendBtn.textContent = 'Send';
-            }
-        }
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) break;
 
-        // ------------------------------------------------------------------
-        // Core: send question and stream answer
-        // ------------------------------------------------------------------
-        async function sendQuestion(question) {
-            if (!question.trim() || !API_URL) return;
+                buffer += decoder.decode(value, { stream: true });
 
-            addMessage(question, 'user');
-            inputEl.value = '';
+                while (buffer.includes('\n')) {
+                    const idx = buffer.indexOf('\n');
+                    let line = buffer.slice(0, idx).trim();
+                    buffer = buffer.slice(idx + 1);
 
-            setTyping(true);
-            setLoading(true);
+                    if (!line || !line.startsWith('data: ')) continue;
 
-            const botMsg = addMessage('', 'bot');
-            let fullAnswer = '';
-
-            try {
-                const response = await fetch(`${API_URL}/ask`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ question }),
-                });
-
-                if (!response.ok) {
-                    const err = await response.text();
-                    throw new Error(`Server error: ${response.status} ${err}`);
-                }
-
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder('utf-8');
-                let buffer = '';
-
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-
-                    buffer += decoder.decode(value, { stream: true });
-
-                    while (buffer.includes('\n')) {
-                        const newlineIdx = buffer.indexOf('\n');
-                        let line = buffer.slice(0, newlineIdx).trim();
-                        buffer = buffer.slice(newlineIdx + 1);
-
-                        if (!line) continue;
-                        if (!line.startsWith('data: ')) continue;
-
-                        const jsonStr = line.slice(6);
-                        try {
-                            const data = JSON.parse(jsonStr);
-                            if (data.token !== undefined && data.done !== undefined) {
-                                if (!data.done) {
-                                    const token = data.token || '';
-                                    fullAnswer += token;
-                                    botMsg.textContent = fullAnswer;
-                                    messagesEl.scrollTop = messagesEl.scrollHeight;
-                                }
-                            }
-                        } catch (_) {
+                    const jsonStr = line.slice(6);
+                    try {
+                        const data = JSON.parse(jsonStr);
+                        if (data.token !== undefined && !data.done) {
+                            fullAnswer += data.token || '';
+                            botMsg.textContent = fullAnswer;
+                            messagesEl.scrollTop = messagesEl.scrollHeight;
                         }
-                    }
+                    } catch (_) { /* ignore partial JSON */ }
                 }
-
-                if (!fullAnswer) {
-                    botMsg.textContent = '(no response)';
-                }
-                const sourceEl = botMsg.querySelector('.source');
-                if (sourceEl) {
-                    sourceEl.textContent = 'source: ollama';
-                }
-
-            } catch (err) {
-                console.error(err);
-                botMsg.textContent = `${err.message || 'Something went wrong.'}`;
-                botMsg.className = 'message error';
-            } finally {
-                setTyping(false);
-                setLoading(false);
-                inputEl.focus();
             }
+
+            if (!fullAnswer) botMsg.textContent = '(no response)';
+
+        } catch (err) {
+            console.error(err);
+            botMsg.textContent = '⚠️ ' + (err.message || 'Something went wrong.');
+            botMsg.className = 'message error';
+        } finally {
+            setTyping(false);
+            setLoading(false);
+            inputEl.focus();
         }
+    }
 
-        // ------------------------------------------------------------------
-        // Event listeners (only if API_URL is set)
-        // ------------------------------------------------------------------
-        sendBtn.addEventListener('click', () => {
+    // ------------------------------------------------------------------
+    // Events
+    // ------------------------------------------------------------------
+    sendBtn.addEventListener('click', () => { if (API_URL) sendQuestion(inputEl.value); });
+    inputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
             if (API_URL) sendQuestion(inputEl.value);
-        });
-
-        inputEl.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                if (API_URL) sendQuestion(inputEl.value);
-            }
-        });
-
-        // We'll let the config load complete first.
-        // The UI is enabled after fetch resolves.
-    </script>
+        }
+    });
+</script>
 
 </body>
 </html>
