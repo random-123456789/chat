@@ -1,21 +1,21 @@
 {
   "name": "config.json",
   "path": "config.json",
-  "sha": "b1a837f75825597cd50bc94f5d102e2cdeec6cd3",
-  "size": 94,
+  "sha": "e8ef837bd5abe5be7fdbd260bf64c5271f318c19",
+  "size": 1047,
   "url": "https://api.github.com/repos/random-123456789/chat/contents/config.json?ref=main",
   "html_url": "https://github.com/random-123456789/chat/blob/main/config.json",
-  "git_url": "https://api.github.com/repos/random-123456789/chat/git/blobs/b1a837f75825597cd50bc94f5d102e2cdeec6cd3",
+  "git_url": "https://api.github.com/repos/random-123456789/chat/git/blobs/e8ef837bd5abe5be7fdbd260bf64c5271f318c19",
   "download_url": "https://raw.githubusercontent.com/random-123456789/chat/main/config.json",
   "type": "file",
-  "content": "ewogICJhcGlVcmwiOiAiaHR0cHM6Ly9wcm9jZWR1cmUtdGVsZWNoYXJnZXIt\ncG9zdGFnZS1kZHIudHJ5Y2xvdWRmbGFyZS5jb20iCiAgIndvcmtlcnMiOiBb\nXQp9Cg==\n",
+  "content": "ewogICJuYW1lIjogImNvbmZpZy5qc29uIiwKICAicGF0aCI6ICJjb25maWcu\nanNvbiIsCiAgInNoYSI6ICJiMWE4MzdmNzU4MjU1OTdjZDUwYmM5NGY1ZDEw\nMmUyY2RlZWM2Y2QzIiwKICAic2l6ZSI6IDk0LAogICJ1cmwiOiAiaHR0cHM6\nLy9hcGkuZ2l0aHViLmNvbS9yZXBvcy9yYW5kb20tMTIzNDU2Nzg5L2NoYXQv\nY29udGVudHMvY29uZmlnLmpzb24/cmVmPW1haW4iLAogICJodG1sX3VybCI6\nICJodHRwczovL2dpdGh1Yi5jb20vcmFuZG9tLTEyMzQ1Njc4OS9jaGF0L2Js\nb2IvbWFpbi9jb25maWcuanNvbiIsCiAgImdpdF91cmwiOiAiaHR0cHM6Ly9h\ncGkuZ2l0aHViLmNvbS9yZXBvcy9yYW5kb20tMTIzNDU2Nzg5L2NoYXQvZ2l0\nL2Jsb2JzL2IxYTgzN2Y3NTgyNTU5N2NkNTBiYzk0ZjVkMTAyZTJjZGVlYzZj\nZDMiLAogICJkb3dubG9hZF91cmwiOiAiaHR0cHM6Ly9yYXcuZ2l0aHVidXNl\ncmNvbnRlbnQuY29tL3JhbmRvbS0xMjM0NTY3ODkvY2hhdC9tYWluL2NvbmZp\nZy5qc29uIiwKICAidHlwZSI6ICJmaWxlIiwKICAiY29udGVudCI6ICJld29n\nSUNKaGNHbFZjbXdpT2lBaWFIUjBjSE02THk5d2NtOWpaV1IxY21VdGRHVnNa\nV05vWVhKblpYSXRcbmNHOXpkR0ZuWlMxa1pISXVkSEo1WTJ4dmRXUm1iR0Z5\nWlM1amIyMGlDaUFnSW5kdmNtdGxjbk1pT2lCYlxuWFFwOUNnPT1cbiIsCiAg\nImVuY29kaW5nIjogImJhc2U2NCIsCiAgIl9saW5rcyI6IHsKICAgICJzZWxm\nIjogImh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3MvcmFuZG9tLTEyMzQ1\nNjc4OS9jaGF0L2NvbnRlbnRzL2NvbmZpZy5qc29uP3JlZj1tYWluIiwKICAg\nICJnaXQiOiAiaHR0cHM6Ly9hcGkuZ2l0aHViLmNvbS9yZXBvcy9yYW5kb20t\nMTIzNDU2Nzg5L2NoYXQvZ2l0L2Jsb2JzL2IxYTgzN2Y3NTgyNTU5N2NkNTBi\nYzk0ZjVkMTAyZTJjZGVlYzZjZDMiLAogICAgImh0bWwiOiAiaHR0cHM6Ly9n\naXRodWIuY29tL3JhbmRvbS0xMjM0NTY3ODkvY2hhdC9ibG9iL21haW4vY29u\nZmlnLmpzb24iCiAgfSwKICAid29ya2VycyI6IFsKICAgICJib3JlLnB1Yjo2\nMjE0MyIKICBdCn0K\n",
   "encoding": "base64",
   "_links": {
     "self": "https://api.github.com/repos/random-123456789/chat/contents/config.json?ref=main",
-    "git": "https://api.github.com/repos/random-123456789/chat/git/blobs/b1a837f75825597cd50bc94f5d102e2cdeec6cd3",
+    "git": "https://api.github.com/repos/random-123456789/chat/git/blobs/e8ef837bd5abe5be7fdbd260bf64c5271f318c19",
     "html": "https://github.com/random-123456789/chat/blob/main/config.json"
   },
   "workers": [
-    "bore.pub:62143"
+    "bore.pub:36756"
   ]
 }
